@@ -65,8 +65,18 @@ class _PagesState extends State<Pages> {
       "offer": "34",
       "price": "1200"
     },
-    
-    
+    {
+      "image": "assets/150.jpeg",
+      "productname": "Bag",
+      "offer": "15",
+      "price": "1200"
+    },
+    {
+      "image": "assets/151.jpeg",
+      "productname": "Burger",
+      "offer": "10",
+      "price": "1200"
+    },
   ];
 
   NavigationRailLabelType labelType = NavigationRailLabelType.all;
@@ -170,41 +180,44 @@ class _PagesState extends State<Pages> {
 
                     SizedBox(
                       height: 800,
-                      width: 170,
-                      
-                      child: Center(
-                        child: GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2),
-                            itemCount: products.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 10),
-                                    child: Column(
-                                      children: [
-                                        Container(height: 30,width: 75,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: AssetImage(
-                                                      products[index]['image']),
-                                                  fit: BoxFit.cover)),
-                                        ),
-                                        Container(height: 40,width: 60,child: Column(
-                                          children: [
-                                            Text(products[index]['productname']),Text(products[index]['price'])
-                                          ],
-                                        ))
-                                      ],
-                                    ),
+                      width: 200,
+                      child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 20),
+                          itemCount: products.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(3.0, 10.0),
+                                    blurRadius: 5.0,
+                                    spreadRadius: 4.0),
+                                BoxShadow(
+                                    color: Colors.white,
+                                    offset: Offset(0.0, 0.0),
+                                    blurRadius: 0.0,
+                                    spreadRadius: 0.0),
+                              ]),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                      image:
+                                          AssetImage(products[index]['image']),
+                                    )),
                                   ),
-                                ),
-                              );
-                            }),
-                      ),
+                                  Text(products[index]['productname']),
+                                  Text(products[index]['price'])
+                                ],
+                              ),
+                            );
+                          }),
                     )
                   ],
                 ),
@@ -213,6 +226,24 @@ class _PagesState extends State<Pages> {
           ),
         ),
       ),
+      bottomNavigationBar:
+          BottomNavigationBar(type: BottomNavigationBarType.fixed, items: [
+        const BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home)),
+        const BottomNavigationBarItem(
+            label: "Blog", icon: Icon(Icons.read_more_outlined)),
+        BottomNavigationBarItem(
+            label: "Category",
+            icon: IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const Pages()));
+                },
+                icon: const Icon(Icons.category_outlined))),
+        const BottomNavigationBarItem(
+            label: "Cart", icon: Icon(Icons.shopping_cart_outlined)),
+        const BottomNavigationBarItem(
+            label: "Account", icon: Icon(Icons.account_box_outlined))
+      ]),
     );
   }
 }
